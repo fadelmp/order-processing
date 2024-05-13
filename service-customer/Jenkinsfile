@@ -9,7 +9,7 @@ pipeline {
                 }
             }
             steps {
-                dir('master-fraud') {
+                dir('service-customer') {
                     sh "mvn clean compile"
                 }
             }
@@ -22,7 +22,7 @@ pipeline {
                 }
             }
             steps {
-                dir('master-fraud') {
+                dir('service-customer') {
                     sh "mvn test"
                 }
             }
@@ -35,7 +35,7 @@ pipeline {
                 }
             }
             steps {
-                dir('master-fraud') {
+                dir('service-customer') {
                     sh "mvn -B -DskipTests clean package"
                 }
             }
@@ -43,12 +43,12 @@ pipeline {
         stage('Deploy') {
             agent any
             steps {
-                dir('master-fraud') {
-                    sh "docker ps -f name=wtrack-master-fraud -q | xargs --no-run-if-empty docker container stop"
-                    sh "docker container ls -a -fname=wtrack-master-fraud -q | xargs -r docker container rm"
-                    sh "docker images -qa wtrack-master-fraud:latest | xargs --no-run-if-empty docker rmi"
-                    sh "docker build -t wtrack-master-fraud:latest ."
-                    sh "docker run -m 300m --name wtrack-master-fraud -d -p 4029:4029 -v /data/wdn/wtrack/wtrack-core/master-fraud/logs:/logs wtrack-master-fraud -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+                dir('service-customer') {
+                    sh "docker ps -f name=service-customer -q | xargs --no-run-if-empty docker container stop"
+                    sh "docker container ls -a -fname=service-customer -q | xargs -r docker container rm"
+                    sh "docker images -qa service-customer:latest | xargs --no-run-if-empty docker rmi"
+                    sh "docker build -t service-customer:latest ."
+                    sh "docker run -m 300m --name service-customer -d -p 4029:4029 service-customer -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
                 }
             }
         }
