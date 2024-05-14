@@ -1,0 +1,56 @@
+pipeline {
+    agent none
+    stages {
+        stage('Compile') {
+            agent {
+                docker {
+                    image 'maven:3.8.3-openjdk-17' 
+                    args '-v /root/.m2:/root/.m2' 
+                }
+            }
+            steps {
+                dir('service-order') {
+                    sh "mvn clean compile"
+                }
+            }
+        }
+        stage('Unit Test') {
+            agent {
+                docker {
+                    image 'maven:3.8.3-openjdk-17' 
+                    args '-v /root/.m2:/root/.m2' 
+                }
+            }
+            steps {
+                dir('service-order') {
+                    sh "mvn test"
+                }
+            }
+        }
+        stage('Build') {
+            agent {
+                docker {
+                    image 'maven:3.8.3-openjdk-17' 
+                    args '-v /root/.m2:/root/.m2' 
+                }
+            }
+            steps {
+                dir('service-order') {
+                    sh "mvn -B -DskipTests clean package"
+                }
+            }
+        }
+        stage('Deploy') {
+            agent any
+            steps {
+                dir('service-order') {
+                    sh "docker ps -f name=service-order -q | xargs --no-run-if-empty docker container stop"
+                    sh "docker container ls -a -fname=service-order -q | xargs -r docker container rm"
+                    sh "docker images -qa service-order:latest | xargs --no-run-if-empty docker rmi"
+                    sh "docker build -t service-order:latest ."
+                    sh "docker run -m 300m --name service-order -d -p 4003:4003 service-order -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+                }
+            }
+        }
+    }
+}
