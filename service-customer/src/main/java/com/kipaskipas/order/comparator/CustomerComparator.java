@@ -30,7 +30,7 @@ class CustomerComparatorImpl implements CustomerComparator {
 
     String customerId = customerDto.getId();
 
-    Optional<Customer> customer = customerRepo.FindById(customerId);
+    Optional<Customer> customer = customerRepo.findByIdAndIsDeletedFalse(customerId);
 
     if (!customer.isPresent())
       throw new NotFound(CustomerMessage.NOT_FOUND);
@@ -41,7 +41,7 @@ class CustomerComparatorImpl implements CustomerComparator {
     String customerId = customerDto.getId();
     String customerName = customerDto.getName();
 
-    Optional<Customer> customer = customerRepo.FindByName(customerName);
+    Optional<Customer> customer = customerRepo.findByNameAndIsDeletedFalse(customerName);
 
     if (customer.isPresent())
       if (CheckString.Check(customer.get().getName(), customerName) &&

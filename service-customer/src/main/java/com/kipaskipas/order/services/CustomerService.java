@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.kipaskipas.order.comparator.CustomerComparator;
 import com.kipaskipas.order.dto.CustomerDto;
+import com.kipaskipas.order.exceptions.InternalServer;
 import com.kipaskipas.order.mapper.CustomerMapper;
+import com.kipaskipas.order.messages.CustomerMessage;
 import com.kipaskipas.order.models.Customer;
 import com.kipaskipas.order.repository.CustomerRepository;
 
@@ -34,30 +36,57 @@ class CustomerServiceImpl implements CustomerService {
 
   public void Create(CustomerDto customerDto) {
 
-    comparator.CheckName(customerDto);
+    try {
+      comparator.CheckName(customerDto);
 
-    Customer customer = mapper.ToCustomer(customerDto);
-    repository.Create(customer);
+      Customer customer = mapper.ToCustomer(customerDto);
+      repository.save(customer);
 
-    customerDto.setId(customer.getId());
+      customerDto.setId(customer.getId());
+
+    } catch (Exception e) {
+      // Error Handling
+      System.out.println(e);
+      throw new InternalServer(CustomerMessage.CREATE_FAILED);
+    }
+
   }
 
   public void Update(CustomerDto customerDto) {
 
-    comparator.CheckId(customerDto);
-    comparator.CheckName(customerDto);
+    try {
+      comparator.CheckId(customerDto);
+      comparator.CheckName(customerDto);
 
-    Customer customer = mapper.ToCustomer(customerDto);
-    repository.Update(customer);
+      Customer customer = mapper.ToCustomer(customerDto);
+      repository.save(customer);
 
-    customerDto.setId(customer.getId());
+      customerDto.setId(customer.getId());
+
+    } catch (Exception e) {
+      // Error Handling
+      System.out.println(e);
+      throw new InternalServer(CustomerMessage.UPDATE_FAILED);
+    }
+
   }
 
   public CustomerDto GetById(String id) {
 
-    Optional<Customer> customer = repository.FindById(id);
+    CustomerDto customerDto = new CustomerDto();
 
-    return mapper.ToCustomerDto(customer.get());
+    try {
+      Optional<Customer> customerOpt = repository.findByIdAndIsDeletedFalse(id);
+
+      customerDto = (!customerOpt.isPresent()) ? mapper.ToCustomerDto(customerOpt.get()) : null;
+
+    } catch (Exception e) {
+      // Error Handling
+      System.out.println(e);
+      throw new InternalServer(CustomerMessage.INTERNAL_SERVER);
+    }
+
+    return customerDto;
   }
 
 }
