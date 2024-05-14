@@ -1,5 +1,6 @@
 package com.kipaskipas.order.dto;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
@@ -34,7 +35,7 @@ public class ProductDto {
 
   @NotEmpty(message = "price_is_required")
   @JsonProperty("price")
-  private Integer price;
+  private BigDecimal price;
 
   @NotEmpty(message = "stock_is_required")
   @JsonProperty("stock")

@@ -27,7 +27,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ToString
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer {
 
   // private static final long serialVersionUID = 6164062577693929852L;
