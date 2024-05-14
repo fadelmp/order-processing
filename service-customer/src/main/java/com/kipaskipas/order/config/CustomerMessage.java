@@ -1,4 +1,4 @@
-package com.kipaskipas.order.messages;
+package com.kipaskipas.order.config;
 
 import org.springframework.stereotype.Service;
 

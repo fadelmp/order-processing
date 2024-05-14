@@ -1,4 +1,4 @@
-package com.kipaskipas.order.exceptions;
+package com.kipaskipas.order.helpers.exceptions;
 
 import java.lang.String;
 import lombok.AllArgsConstructor;

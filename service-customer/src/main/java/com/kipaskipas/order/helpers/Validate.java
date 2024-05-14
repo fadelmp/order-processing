@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kipaskipas.order.exceptions.ValidateRequest;
+import com.kipaskipas.order.helpers.exceptions.ValidateRequest;
 
 @Service
 @RestController

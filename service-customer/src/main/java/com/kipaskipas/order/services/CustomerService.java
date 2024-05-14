@@ -4,10 +4,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.kipaskipas.order.comparator.CustomerComparator;
+import com.kipaskipas.order.config.CustomerMessage;
 import com.kipaskipas.order.dto.CustomerDto;
-import com.kipaskipas.order.exceptions.InternalServer;
+import com.kipaskipas.order.helpers.exceptions.InternalServer;
 import com.kipaskipas.order.mapper.CustomerMapper;
-import com.kipaskipas.order.messages.CustomerMessage;
 import com.kipaskipas.order.models.Customer;
 import com.kipaskipas.order.repository.CustomerRepository;
 

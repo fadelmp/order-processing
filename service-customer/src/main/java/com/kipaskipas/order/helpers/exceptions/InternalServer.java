@@ -1,4 +1,4 @@
-package com.kipaskipas.order.exceptions;
+package com.kipaskipas.order.helpers.exceptions;
 
 import java.lang.String;
 import lombok.AllArgsConstructor;
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class BadRequest extends RuntimeException {
+public class InternalServer extends RuntimeException {
 
-  public BadRequest(final String errorMessage) {
+  public InternalServer(final String errorMessage) {
 
     super(errorMessage);
   }

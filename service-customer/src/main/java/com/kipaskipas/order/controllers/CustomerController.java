@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kipaskipas.order.config.CustomerMessage;
 import com.kipaskipas.order.dto.CustomerDto;
 import com.kipaskipas.order.helpers.ResponseApi;
 import com.kipaskipas.order.helpers.Validate;
-import com.kipaskipas.order.messages.CustomerMessage;
 import com.kipaskipas.order.services.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;

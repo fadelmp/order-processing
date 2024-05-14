@@ -5,12 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.kipaskipas.order.exceptions.NotFound;
-
-import com.kipaskipas.order.exceptions.BadRequest;
-import com.kipaskipas.order.exceptions.InternalServer;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.kipaskipas.order.helpers.exceptions.BadRequest;
+import com.kipaskipas.order.helpers.exceptions.InternalServer;
+import com.kipaskipas.order.helpers.exceptions.NotFound;
 
 @ControllerAdvice
 public class AdvisorController extends ResponseEntityExceptionHandler {
