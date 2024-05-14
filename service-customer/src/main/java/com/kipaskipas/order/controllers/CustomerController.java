@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public interface CustomerController {
 
-  String CheckCustomer(String id);
+  String CheckId(String id);
 
   ResponseEntity<Object> GetById(String id);
 
@@ -33,7 +33,7 @@ class CustomerControllerImpl implements CustomerController {
   @Autowired
   private CustomerService service;
 
-  public String CheckCustomer(String id) {
+  public String CheckId(String id) {
 
     CustomerDto customerDto = service.GetById(id);
 

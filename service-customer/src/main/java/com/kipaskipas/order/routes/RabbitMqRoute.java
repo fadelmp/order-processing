@@ -18,9 +18,9 @@ public class RabbitMqRoute {
 
   @RabbitHandler
   @RabbitListener(queues = "customer")
-  public String CheckCustomer(@RequestBody String id) {
+  public String CheckCustomerId(@RequestBody String id) {
 
-    return controller.CheckCustomer(id);
+    return controller.CheckId(id);
   }
 
 }
