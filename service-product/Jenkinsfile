@@ -9,7 +9,7 @@ pipeline {
                 }
             }
             steps {
-                dir('service-customer') {
+                dir('service-product') {
                     sh "mvn clean compile"
                 }
             }
@@ -22,7 +22,7 @@ pipeline {
                 }
             }
             steps {
-                dir('service-customer') {
+                dir('service-product') {
                     sh "mvn test"
                 }
             }
@@ -35,7 +35,7 @@ pipeline {
                 }
             }
             steps {
-                dir('service-customer') {
+                dir('service-product') {
                     sh "mvn -B -DskipTests clean package"
                 }
             }
@@ -43,12 +43,12 @@ pipeline {
         stage('Deploy') {
             agent any
             steps {
-                dir('service-customer') {
-                    sh "docker ps -f name=service-customer -q | xargs --no-run-if-empty docker container stop"
-                    sh "docker container ls -a -fname=service-customer -q | xargs -r docker container rm"
-                    sh "docker images -qa service-customer:latest | xargs --no-run-if-empty docker rmi"
-                    sh "docker build -t service-customer:latest ."
-                    sh "docker run -m 300m --name service-customer -d -p 4001:4001 service-customer -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+                dir('service-product') {
+                    sh "docker ps -f name=service-product -q | xargs --no-run-if-empty docker container stop"
+                    sh "docker container ls -a -fname=service-product -q | xargs -r docker container rm"
+                    sh "docker images -qa service-product:latest | xargs --no-run-if-empty docker rmi"
+                    sh "docker build -t service-product:latest ."
+                    sh "docker run -m 300m --name service-product -d -p 4002:4002 service-product -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
                 }
             }
         }
