@@ -17,8 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public interface CustomerController {
 
-  String CheckId(String id);
-
   ResponseEntity<Object> GetById(String id);
 
   ResponseEntity<Object> Create(CustomerDto customerDto, Errors errors);
@@ -32,13 +30,6 @@ class CustomerControllerImpl implements CustomerController {
 
   @Autowired
   private CustomerService service;
-
-  public String CheckId(String id) {
-
-    CustomerDto customerDto = service.GetById(id);
-
-    return (Objects.isNull(customerDto)) ? CustomerMessage.NOT_FOUND : "";
-  }
 
   public ResponseEntity<Object> GetById(String id) {
 
