@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kipaskipas.order.controllers.ProductController;
+import com.kipaskipas.order.dto.ProductDto;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @CrossOrigin()
@@ -18,9 +20,9 @@ public class RabbitMqRoute {
 
   @RabbitHandler
   @RabbitListener(queues = "product")
-  public String CheckProductId(@RequestBody String id) {
+  public void UpdateStock(@RequestBody ProductDto productDto) {
 
-    return controller.CheckId(id);
+    controller.UpdateStock(productDto);
   }
 
 }

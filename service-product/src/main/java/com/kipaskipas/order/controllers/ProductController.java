@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public interface ProductController {
 
-  String CheckId(String id);
+  void UpdateStock(ProductDto productDto);
 
   ResponseEntity<Object> GetById(String id);
 
@@ -33,11 +33,9 @@ class ProductControllerImpl implements ProductController {
   @Autowired
   private ProductService service;
 
-  public String CheckId(String id) {
+  public void UpdateStock(ProductDto productDto) {
 
-    ProductDto productDto = service.GetById(id);
-
-    return (Objects.isNull(productDto)) ? ProductMessage.NOT_FOUND : "";
+    service.UpdateStock(productDto);
   }
 
   public ResponseEntity<Object> GetById(String id) {

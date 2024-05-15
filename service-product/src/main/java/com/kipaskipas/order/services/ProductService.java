@@ -15,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public interface ProductService {
 
-  void Create(ProductDto ProductDto);
+  void Create(ProductDto productDto);
 
-  void Update(ProductDto ProductDto);
+  void Update(ProductDto productDto);
 
-  ProductDto GetById(String ProductId);
+  ProductDto GetById(String productId);
+
+  void UpdateStock(ProductDto productDto);
 }
 
 @Service
@@ -87,6 +89,22 @@ class ProductServiceImpl implements ProductService {
     }
 
     return productDto;
+  }
+
+  public void UpdateStock(ProductDto productDto) {
+
+    try {
+      Optional<Product> productOpt = repository.findByIdAndIsDeletedFalse(productDto.getId());
+
+      Product product = productOpt.get();
+      product.setStock(product.getStock() - productDto.getStock());
+
+      repository.save(product);
+
+    } catch (Exception e) {
+      // Error Handling
+      System.out.println(e);
+    }
   }
 
 }
