@@ -62,13 +62,9 @@ public class Order {
   @Column(name = "amount")
   private BigDecimal amount;
 
-  @NotEmpty(message = "price_is_required")
-  @Column(name = "price")
-  private Integer price;
-
-  @NotEmpty(message = "stock_is_required")
-  @Column(name = "stock")
-  private Integer stock;
+  @NotEmpty(message = "quantity_is_required")
+  @Column(name = "quantity")
+  private Integer quantity;
 
   @Column(name = "is_actived")
   private Boolean isActived = true;
