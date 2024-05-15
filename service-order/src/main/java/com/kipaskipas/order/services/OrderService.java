@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.kipaskipas.order.comparator.OrderComparator;
 import com.kipaskipas.order.config.OrderMessage;
 import com.kipaskipas.order.dto.OrderDto;
+import com.kipaskipas.order.dto.ProductDto;
 import com.kipaskipas.order.helpers.exceptions.InternalServer;
 import com.kipaskipas.order.mapper.OrderMapper;
 import com.kipaskipas.order.models.Order;
@@ -29,6 +30,9 @@ class OrderServiceImpl implements OrderService {
   @Autowired
   private OrderRepository repository;
 
+  @Autowired
+  private RabbitMqService rabbitService;
+
   public void Save(OrderDto orderDto) {
 
     try {
@@ -37,6 +41,9 @@ class OrderServiceImpl implements OrderService {
 
       Order order = mapper.ToOrder(orderDto);
       repository.save(order);
+
+      ProductDto productDto = mapper.ToProductDto(orderDto);
+      rabbitService.UpdateStock(productDto);
 
       orderDto.setId(order.getId());
 

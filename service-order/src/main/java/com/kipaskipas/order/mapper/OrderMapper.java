@@ -3,6 +3,7 @@ package com.kipaskipas.order.mapper;
 import org.springframework.stereotype.Service;
 
 import com.kipaskipas.order.dto.OrderDto;
+import com.kipaskipas.order.dto.ProductDto;
 import com.kipaskipas.order.models.Customer;
 import com.kipaskipas.order.models.Order;
 import com.kipaskipas.order.models.Product;
@@ -10,6 +11,8 @@ import com.kipaskipas.order.models.Product;
 public interface OrderMapper {
 
   Order ToOrder(OrderDto orderDto);
+
+  ProductDto ToProductDto(OrderDto orderDto);
 }
 
 @Service
@@ -26,6 +29,13 @@ class OrderMapperImpl implements OrderMapper {
         .setQuantity(orderDto.getQuantity())
         .setCreatedBy(orderDto.getCreatedBy())
         .setUpdatedBy(orderDto.getUpdatedBy());
+  }
+
+  public ProductDto ToProductDto(OrderDto orderDto) {
+
+    return new ProductDto()
+        .setId(orderDto.getProductId())
+        .setStock(orderDto.getQuantity());
   }
 
 }
