@@ -33,8 +33,6 @@ import lombok.experimental.Accessors;
 @Table(name = "orders")
 public class Order {
 
-  // private static final long serialVersionUID = 6164062577693929852L;
-
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "pg-uuid")
   @GenericGenerator(name = "pg-uuid", strategy = "uuid2")
