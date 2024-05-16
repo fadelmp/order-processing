@@ -78,7 +78,7 @@ class CustomerServiceImpl implements CustomerService {
     try {
       Optional<Customer> customerOpt = repository.findByIdAndIsDeletedFalse(id);
 
-      customerDto = (!customerOpt.isPresent()) ? mapper.ToCustomerDto(customerOpt.get()) : null;
+      customerDto = (customerOpt.isPresent()) ? mapper.ToCustomerDto(customerOpt.get()) : null;
 
     } catch (Exception e) {
       // Error Handling

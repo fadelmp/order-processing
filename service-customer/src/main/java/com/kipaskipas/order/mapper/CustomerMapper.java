@@ -18,6 +18,7 @@ class CustomerMapperImpl implements CustomerMapper {
   public Customer ToCustomer(CustomerDto customerDto) {
 
     return new Customer()
+        .setId(customerDto.getId())
         .setName(customerDto.getName())
         .setPhone(customerDto.getPhone())
         .setAddress(customerDto.getAddress())
