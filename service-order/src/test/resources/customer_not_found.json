@@ -1,0 +1,10 @@
+{
+  "customer_id": "xxx",
+  "customer_name": "Fadel",
+  "product_id": "b3457f1c-b2ad-48c6-8ed7-3a5084223010",
+  "product_name": "Baju",
+  "amount": 150000,
+  "quantity": 3,
+  "created_by": "Fadel",
+  "updated_by": "Fadel"
+}

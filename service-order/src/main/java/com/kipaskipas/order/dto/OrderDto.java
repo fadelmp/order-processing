@@ -1,6 +1,5 @@
 package com.kipaskipas.order.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
@@ -46,7 +45,7 @@ public class OrderDto {
 
   @NotNull(message = "amount_is_required")
   @JsonProperty("amount")
-  private BigDecimal amount;
+  private Double amount;
 
   @NotNull(message = "quantity_is_required")
   @JsonProperty("quantity")

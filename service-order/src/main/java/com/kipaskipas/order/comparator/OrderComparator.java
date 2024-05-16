@@ -1,6 +1,5 @@
 package com.kipaskipas.order.comparator;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -75,11 +74,11 @@ class OrderComparatorImpl implements OrderComparator {
 
   private void checkProductAmount(Product product, OrderDto orderDto) {
 
-    BigDecimal amount = orderDto.getAmount();
-    BigDecimal productPrice = product.getPrice();
+    Double amount = orderDto.getAmount();
+    Double productPrice = product.getPrice();
     Integer quantity = orderDto.getQuantity();
 
-    BigDecimal total = productPrice.multiply(BigDecimal.valueOf(quantity));
+    Double total = productPrice * quantity;
 
     if (amount.compareTo(total) != 0)
       throw new InternalServer(OrderMessage.AMOUNT_MISMATCH);

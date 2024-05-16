@@ -3,7 +3,6 @@ package com.kipaskipas.order.model;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -47,7 +46,7 @@ public class Product {
   private String description;
 
   @Column(name = "price")
-  private BigDecimal price;
+  private Double price;
 
   @Column(name = "stock")
   private Integer stock;

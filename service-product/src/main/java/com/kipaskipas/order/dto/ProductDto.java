@@ -1,6 +1,5 @@
 package com.kipaskipas.order.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
@@ -34,7 +33,7 @@ public class ProductDto {
   private String description;
 
   @JsonProperty("price")
-  private BigDecimal price;
+  private Double price;
 
   @JsonProperty("stock")
   private Integer stock;
