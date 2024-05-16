@@ -81,7 +81,7 @@ class OrderComparatorImpl implements OrderComparator {
 
     BigDecimal total = productPrice.multiply(BigDecimal.valueOf(quantity));
 
-    if (total != amount)
+    if (amount.compareTo(total) != 0)
       throw new InternalServer(OrderMessage.AMOUNT_MISMATCH);
   }
 

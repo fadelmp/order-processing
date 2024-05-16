@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -58,11 +59,11 @@ public class Order {
   @Column(name = "product_name", length = 50)
   private String productName;
 
-  @NotEmpty(message = "amount_is_required")
+  @NotNull
   @Column(name = "amount")
   private BigDecimal amount;
 
-  @NotEmpty(message = "quantity_is_required")
+  @NotNull
   @Column(name = "quantity")
   private Integer quantity;
 

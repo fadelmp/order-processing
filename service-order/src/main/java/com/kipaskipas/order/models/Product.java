@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -46,11 +47,11 @@ public class Product {
   @Column(name = "description", length = 200)
   private String description;
 
-  @NotEmpty(message = "price_is_required")
+  @NotNull
   @Column(name = "price")
   private BigDecimal price;
 
-  @NotEmpty(message = "stock_is_required")
+  @NotNull
   @Column(name = "stock")
   private Integer stock;
 

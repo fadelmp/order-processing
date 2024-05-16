@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -42,11 +44,11 @@ public class OrderDto {
   @JsonProperty("product_name")
   private String productName;
 
-  @NotEmpty(message = "amount_is_required")
+  @NotNull(message = "amount_is_required")
   @JsonProperty("amount")
   private BigDecimal amount;
 
-  @NotEmpty(message = "quantity_is_required")
+  @NotNull(message = "quantity_is_required")
   @JsonProperty("quantity")
   private Integer quantity;
 

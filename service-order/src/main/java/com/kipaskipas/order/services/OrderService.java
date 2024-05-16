@@ -11,6 +11,7 @@ import com.kipaskipas.order.mapper.OrderMapper;
 import com.kipaskipas.order.models.Order;
 import com.kipaskipas.order.repository.OrderRepository;
 
+import org.hibernate.QueryException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public interface OrderService {
@@ -47,7 +48,7 @@ class OrderServiceImpl implements OrderService {
 
       orderDto.setId(order.getId());
 
-    } catch (Exception e) {
+    } catch (QueryException e) {
       // Error Handling
       System.out.println(e);
       throw new InternalServer(OrderMessage.CREATE_FAILED);
