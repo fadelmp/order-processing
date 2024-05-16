@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-eureka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-eureka
+  template:
+    metadata:
+      labels:
+        app: server-eureka
+    spec:
+      containers:
+        - name: server-eureka
+          image: server-eureka-image:latest
+          ports:
+            - containerPort: 8761
