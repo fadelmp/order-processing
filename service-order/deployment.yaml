@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-order
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: service-order
+  template:
+    metadata:
+      labels:
+        app: service-order
+    spec:
+      containers:
+        - name: service-order
+          image: service-order-image:latest
+          ports:
+            - containerPort: 8001

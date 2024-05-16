@@ -1,56 +1,60 @@
 pipeline {
-    agent none
-    stages {
-        stage('Compile') {
-            agent {
-                docker {
-                    image 'maven:3.8.3-openjdk-17' 
-                    args '-v /root/.m2:/root/.m2' 
-                }
-            }
-            steps {
-                dir('service-customer') {
-                    sh "mvn clean compile"
-                }
-            }
+  agent none
+  stages {
+    stage('Compile') {
+      agent {
+        docker {
+          image 'maven:3.8.3-openjdk-17' 
+          args '-v /root/.m2:/root/.m2' 
         }
-        stage('Unit Test') {
-            agent {
-                docker {
-                    image 'maven:3.8.3-openjdk-17' 
-                    args '-v /root/.m2:/root/.m2' 
-                }
-            }
-            steps {
-                dir('service-customer') {
-                    sh "mvn test"
-                }
-            }
+      }
+      steps {
+        dir('service-customer') {
+          sh "mvn clean compile"
         }
-        stage('Build') {
-            agent {
-                docker {
-                    image 'maven:3.8.3-openjdk-17' 
-                    args '-v /root/.m2:/root/.m2' 
-                }
-            }
-            steps {
-                dir('service-customer') {
-                    sh "mvn -B -DskipTests clean package"
-                }
-            }
-        }
-        stage('Deploy') {
-            agent any
-            steps {
-                dir('service-customer') {
-                    sh "docker ps -f name=service-customer -q | xargs --no-run-if-empty docker container stop"
-                    sh "docker container ls -a -fname=service-customer -q | xargs -r docker container rm"
-                    sh "docker images -qa service-customer:latest | xargs --no-run-if-empty docker rmi"
-                    sh "docker build -t service-customer:latest ."
-                    sh "docker run -m 300m --name service-customer -d -p 4001:4001 service-customer -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-                }
-            }
-        }
+      }
     }
+    stage('Unit Test') {
+      agent {
+        docker {
+          image 'maven:3.8.3-openjdk-17' 
+          args '-v /root/.m2:/root/.m2' 
+        }
+      }
+      steps {
+        dir('service-customer') {
+          sh "mvn test"
+        }
+      }
+    }
+    stage('Build') {
+      agent {
+        docker {
+          image 'maven:3.8.3-openjdk-17' 
+          args '-v /root/.m2:/root/.m2' 
+        }
+      }
+      steps {
+        dir('service-customer') {
+          sh "mvn -B -DskipTests clean package"
+        }
+      }
+    }
+    stage('Dockerize') {
+      steps {
+        sh 'docker build -t service-customer-image .'
+      }
+    }
+    stage('Push to Docker') {
+      steps {
+        sh 'docker push your-docker-image'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        sh 'kubectl apply -f deployment.yaml'
+        sh 'kubectl apply -f service.yaml'
+      }
+    }
+  }
 }

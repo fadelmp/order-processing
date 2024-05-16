@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-customer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-customer
+  template:
+    metadata:
+      labels:
+        app: service-customer
+    spec:
+      containers:
+        - name: service-customer
+          image: service-customer-image:latest
+          ports:
+            - containerPort: 8001
