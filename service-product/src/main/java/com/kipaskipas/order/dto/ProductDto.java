@@ -33,11 +33,9 @@ public class ProductDto {
   @JsonProperty("description")
   private String description;
 
-  @NotEmpty(message = "price_is_required")
   @JsonProperty("price")
   private BigDecimal price;
 
-  @NotEmpty(message = "stock_is_required")
   @JsonProperty("stock")
   private Integer stock;
 

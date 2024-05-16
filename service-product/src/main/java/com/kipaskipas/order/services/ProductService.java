@@ -11,6 +11,7 @@ import com.kipaskipas.order.mapper.ProductMapper;
 import com.kipaskipas.order.models.Product;
 import com.kipaskipas.order.repository.ProductRepository;
 
+import org.hibernate.QueryException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public interface ProductService {
@@ -46,7 +47,7 @@ class ProductServiceImpl implements ProductService {
 
       productDto.setId(product.getId());
 
-    } catch (Exception e) {
+    } catch (QueryException e) {
       // Error Handling
       System.out.println(e);
       throw new InternalServer(ProductMessage.CREATE_FAILED);
@@ -80,7 +81,7 @@ class ProductServiceImpl implements ProductService {
     try {
       Optional<Product> productOpt = repository.findByIdAndIsDeletedFalse(id);
 
-      productDto = (!productOpt.isPresent()) ? mapper.ToProductDto(productOpt.get()) : null;
+      productDto = (productOpt.isPresent()) ? mapper.ToProductDto(productOpt.get()) : null;
 
     } catch (Exception e) {
       // Error Handling

@@ -46,11 +46,9 @@ public class Product {
   @Column(name = "description", length = 200)
   private String description;
 
-  @NotEmpty(message = "price_is_required")
   @Column(name = "price")
   private BigDecimal price;
 
-  @NotEmpty(message = "stock_is_required")
   @Column(name = "stock")
   private Integer stock;
 
