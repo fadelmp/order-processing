@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.kipaskipas.order.config.CustomerMessage;
 import com.kipaskipas.order.dto.CustomerDto;
-import com.kipaskipas.order.helpers.CheckString;
-import com.kipaskipas.order.helpers.exceptions.InternalServer;
-import com.kipaskipas.order.helpers.exceptions.NotFound;
-import com.kipaskipas.order.models.Customer;
+import com.kipaskipas.order.helper.CheckString;
+import com.kipaskipas.order.helper.exception.InternalServer;
+import com.kipaskipas.order.helper.exception.NotFound;
+import com.kipaskipas.order.model.Customer;
 import com.kipaskipas.order.repository.CustomerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

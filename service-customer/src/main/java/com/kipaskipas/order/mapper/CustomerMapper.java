@@ -3,7 +3,7 @@ package com.kipaskipas.order.mapper;
 import org.springframework.stereotype.Service;
 
 import com.kipaskipas.order.dto.CustomerDto;
-import com.kipaskipas.order.models.Customer;
+import com.kipaskipas.order.model.Customer;
 
 public interface CustomerMapper {
 

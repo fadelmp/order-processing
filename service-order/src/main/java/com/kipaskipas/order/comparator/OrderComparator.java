@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.kipaskipas.order.config.OrderMessage;
 import com.kipaskipas.order.dto.OrderDto;
-import com.kipaskipas.order.helpers.exceptions.InternalServer;
-import com.kipaskipas.order.models.Customer;
-import com.kipaskipas.order.models.Product;
+import com.kipaskipas.order.helper.exception.InternalServer;
+import com.kipaskipas.order.model.Customer;
+import com.kipaskipas.order.model.Product;
 import com.kipaskipas.order.repository.CustomerRepository;
 import com.kipaskipas.order.repository.OrderRepository;
 import com.kipaskipas.order.repository.ProductRepository;

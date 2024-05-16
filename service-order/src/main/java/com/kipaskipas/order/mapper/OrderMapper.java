@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.kipaskipas.order.dto.OrderDto;
 import com.kipaskipas.order.dto.ProductDto;
-import com.kipaskipas.order.models.Customer;
-import com.kipaskipas.order.models.Order;
-import com.kipaskipas.order.models.Product;
+import com.kipaskipas.order.model.Customer;
+import com.kipaskipas.order.model.Order;
+import com.kipaskipas.order.model.Product;
 
 public interface OrderMapper {
 

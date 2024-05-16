@@ -6,7 +6,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.kipaskipas.order.models.Customer;
+import com.kipaskipas.order.model.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer, String> {
 
