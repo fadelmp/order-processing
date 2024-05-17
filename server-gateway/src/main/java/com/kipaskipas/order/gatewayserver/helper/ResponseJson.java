@@ -1,9 +1,12 @@
-package com.wdn.wtrack.gatewayserver.helpers;
+package com.kipaskipas.order.gatewayserver.helper;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class ResponseJson<T extends Object> {
 
     private Number statusCode = 200;

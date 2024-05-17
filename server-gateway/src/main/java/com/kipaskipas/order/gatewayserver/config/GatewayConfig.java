@@ -1,4 +1,4 @@
-package com.wdn.wtrack.gatewayserver.config;
+package com.kipaskipas.order.gatewayserver.config;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -23,9 +23,9 @@ public class GatewayConfig {
 
   @Bean
   public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-  
+
     http.cors().and().csrf().disable();
-        
+
     return http.build();
   }
 
@@ -33,30 +33,30 @@ public class GatewayConfig {
   public class GatewayErrorAttributes extends DefaultErrorAttributes {
 
     @Override
-    public Map<String, Object> getErrorAttributes(ServerRequest request,  ErrorAttributeOptions options) {
+    public Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
 
-        Throwable error = super.getError(request);
-        Map<String, Object> errorAttributes = new HashMap<>(8);
-        errorAttributes.put("message", error.getMessage());
-        errorAttributes.put("method", request.methodName());
-        errorAttributes.put("path", request.path());
-        MergedAnnotation<ResponseStatus> responseStatusAnnotation = MergedAnnotations
-                .from(error.getClass(), MergedAnnotations.SearchStrategy.TYPE_HIERARCHY).get(ResponseStatus.class);
-        HttpStatus errorStatus = determineHttpStatus(error, responseStatusAnnotation);
-        errorAttributes.put("status", errorStatus.value());
-        errorAttributes.put("statusCode", errorStatus.value());
-        errorAttributes.put("timestamp", new Date());
-        errorAttributes.put("error", errorStatus.getReasonPhrase());
-        return errorAttributes;
+      Throwable error = super.getError(request);
+      Map<String, Object> errorAttributes = new HashMap<>(8);
+      errorAttributes.put("message", error.getMessage());
+      errorAttributes.put("method", request.methodName());
+      errorAttributes.put("path", request.path());
+      MergedAnnotation<ResponseStatus> responseStatusAnnotation = MergedAnnotations
+          .from(error.getClass(), MergedAnnotations.SearchStrategy.TYPE_HIERARCHY).get(ResponseStatus.class);
+      HttpStatus errorStatus = determineHttpStatus(error, responseStatusAnnotation);
+      errorAttributes.put("status", errorStatus.value());
+      errorAttributes.put("statusCode", errorStatus.value());
+      errorAttributes.put("timestamp", new Date());
+      errorAttributes.put("error", errorStatus.getReasonPhrase());
+      return errorAttributes;
     }
-    
+
     // Copy from DefaultErrorWebexceptionHandler
     private HttpStatus determineHttpStatus(Throwable error, MergedAnnotation<ResponseStatus> responseStatusAnnotation) {
-        if (error instanceof ResponseStatusException) {
-            return ((ResponseStatusException) error).getStatus();
-        }
-        return responseStatusAnnotation.getValue("code", HttpStatus.class).orElse(HttpStatus.INTERNAL_SERVER_ERROR);
+      if (error instanceof ResponseStatusException) {
+        return ((ResponseStatusException) error).getStatus();
+      }
+      return responseStatusAnnotation.getValue("code", HttpStatus.class).orElse(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-        
+
   }
 }
