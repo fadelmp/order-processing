@@ -1,5 +1,6 @@
 package com.kipaskipas.order.repository;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -37,6 +38,7 @@ public class OrderRepositoryTest {
     // Then
     assertNotNull(order.getId());
     assertNotEquals(order.getId(), "");
+    assertDoesNotThrow(() -> orderRepo.save(order));
   }
 
 }
