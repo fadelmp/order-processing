@@ -6,32 +6,21 @@ import org.springframework.stereotype.Service;
 import com.kipaskipas.order.config.OrderMessage;
 import com.kipaskipas.order.dto.OrderDto;
 import com.kipaskipas.order.helper.exception.InternalServer;
-import com.kipaskipas.order.model.Customer;
 import com.kipaskipas.order.model.Product;
-import com.kipaskipas.order.repository.CustomerRepository;
-import com.kipaskipas.order.repository.OrderRepository;
 import com.kipaskipas.order.repository.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public interface OrderComparator {
+public interface ProductComparator {
 
   void CheckProduct(OrderDto orderDto);
-
-  void CheckCustomer(OrderDto orderDto);
 }
 
 @Service
-class OrderComparatorImpl implements OrderComparator {
-
-  @Autowired
-  protected OrderRepository OrderRepo;
+class ProductComparatorImpl implements ProductComparator {
 
   @Autowired
   protected ProductRepository productRepo;
-
-  @Autowired
-  protected CustomerRepository customerRepo;
 
   public void CheckProduct(OrderDto orderDto) {
 
@@ -42,16 +31,6 @@ class OrderComparatorImpl implements OrderComparator {
     checkProductId(product);
     checkProductStock(product.get(), orderDto);
     checkProductAmount(product.get(), orderDto);
-  }
-
-  public void CheckCustomer(OrderDto orderDto) {
-
-    String customerId = orderDto.getCustomerId();
-
-    Optional<Customer> customer = customerRepo.findByIdAndIsDeletedFalse(customerId);
-
-    if (!customer.isPresent())
-      throw new InternalServer(OrderMessage.CUSTOMER_NOT_FOUND);
   }
 
   private void checkProductId(Optional<Product> productOpt) {

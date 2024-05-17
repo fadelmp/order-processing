@@ -2,7 +2,8 @@ package com.kipaskipas.order.service;
 
 import org.springframework.stereotype.Service;
 
-import com.kipaskipas.order.comparator.OrderComparator;
+import com.kipaskipas.order.comparator.CustomerComparator;
+import com.kipaskipas.order.comparator.ProductComparator;
 import com.kipaskipas.order.config.OrderMessage;
 import com.kipaskipas.order.dto.OrderDto;
 import com.kipaskipas.order.dto.ProductDto;
@@ -26,25 +27,28 @@ class OrderServiceImpl implements OrderService {
   private OrderMapper mapper;
 
   @Autowired
-  private OrderComparator comparator;
-
-  @Autowired
   private OrderRepository repository;
 
   @Autowired
   private RabbitMqService rabbitService;
 
+  @Autowired
+  private ProductComparator productComp;
+
+  @Autowired
+  private CustomerComparator customerComp;
+
   public void Save(OrderDto orderDto) {
 
     try {
-      comparator.CheckCustomer(orderDto);
-      comparator.CheckProduct(orderDto);
+      customerComp.CheckCustomer(orderDto); // Validate Customer Data
+      productComp.CheckProduct(orderDto); // Validate Product Data
 
-      Order order = mapper.ToOrder(orderDto);
-      repository.save(order);
+      Order order = mapper.ToOrder(orderDto); // Map OrderDto to Order
+      repository.save(order); // Save to Database
 
-      ProductDto productDto = mapper.ToProductDto(orderDto);
-      rabbitService.UpdateStock(productDto);
+      ProductDto productDto = mapper.ToProductDto(orderDto); // Map To ProductDto
+      rabbitService.UpdateStock(productDto); // Send Update Stock via RabbitMq
 
       orderDto.setId(order.getId());
 
